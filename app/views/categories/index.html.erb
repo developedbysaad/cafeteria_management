@@ -1,0 +1,19 @@
+<%= form_with(url: categories_path, method: "post", class: "new") do %>
+  <%= text_field_tag(:name, nil, class: "form-input", placeholder: "new category name", autofocus: "autofocus") %>
+  <%= submit_tag("Add Category!", class: "add-category-button", data: {disable_with: "Adding.."}) %>
+<% end %>
+
+<div class="categories-display">
+  <% categories.order(:id).all.each do |category| %>
+    <div class="category-display">
+      <p class="category-name-display" > <%= category.name %> </p>
+      <p class="category-menu-items-count"> <%= category.menu_items.count %> menu items </p>
+      <div class="edit-delete-block">
+          <%= form_with(url: "/categories/#{category.id}", method: "delete") do %>
+            <%= image_submit_tag("TrashIcon.png", class: "category-delete") %>
+          <% end %>
+          <p class="categories-edit-icon"> <%= link_to ('<i class="fa fa-pencil"></i>').html_safe, "/categories/#{category.id}/edit" %> </p>
+        </div>
+    </div>
+  <% end %>
+</div>

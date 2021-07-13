@@ -1,0 +1,17 @@
+<%= link_to change_menus_path do %>
+  <p> All Menus </h1>
+<% end %>
+<section>
+  <%= form_with(url: menu_items_path, method: "post") do %>
+    <%= text_field_tag(:name, nil, placeholder: "Enter the new item name", autofocus: "autofocus") %>
+    <%= text_area_tag(:description, nil, size: "25x4", placeholder: "Item description") %>
+    <%= select_tag nil, options_for_select(categories), name: "category_id" %>
+    <%= number_field(nil, nil, placeholder: "Enter Price", name: "price", min: 1) %>
+    <%= submit_tag("Add Item!", data: {disable_with: "Adding.."}) %>
+  <% end %>
+  <section>
+    <h1> <%= menu.name %> </h1>
+    <p> <%= menu.menuItemsCheckedCount %> / <%= menu.menu_items.count %> </p>
+    <%= render partial: "display_menu_items", locals: { menu: menu } %>
+  </section>
+</section>

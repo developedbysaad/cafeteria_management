@@ -1,0 +1,28 @@
+<section class="container">
+  <%= form_with(url: menus_path, method: "post") do %>
+    <%= text_field_tag(:name, nil, class: "form-input", placeholder: "Enter the new menu name", autofocus: "autofocus") %>
+    <%= submit_tag("Create!", data: {disable_with: "Creating.."}) %>
+  <% end %>
+  <div>
+    <h1> <%= Menu.activeMenusCount %> / <%= Menu.all.count %> Active menus </h1>
+    <h1> <%= MenuItem.activeMenuItemsCount %> / <%= MenuItem.all.count %> Active menu items </h1>
+  </div>
+  <div>
+    <% Menu.order(:id).all.each do |menu| %>
+      <div>
+        <%= form_with(url: "/menus/#{menu.id}", method: "put") do %>
+          <% checked = menu.active %>
+          <%= check_box_tag(:active, nil, checked, onclick: "this.form.submit()") %>
+        <% end %>
+        <%= link_to "#{menu.name}", "/menus/#{menu.id}" %>
+        <p> <%= menu.menuItemsCheckedCount %>/<%= menu.menu_items.count %> items </p>
+        <div>
+          <%= form_with(url: "/menus/#{menu.id}", method: "delete") do %>
+            <%= image_submit_tag("TrashIcon.png", class: "activeMenus-trash-icon") %>
+          <% end %>
+          <p> <%= link_to "Edit", "/menus/#{menu.id}/edit" %> </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

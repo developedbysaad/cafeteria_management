@@ -1,0 +1,28 @@
+<%= link_to menus_path do %>
+  <p> Add More Items </h1>
+<% end %>
+<div>
+  <% order.order_items.order(:id).each do |order_item|%>
+    <div>
+      <p> <%= order_item.menu_item_name %> </p>
+      <p> <%= order_item.menu_item_price %> </p>
+      <div>
+        <%= form_with(url: "/order_items/#{order_item.id}/decrementInCart", method: "put") do%>
+          <%= submit_tag("-")%>
+        <% end %>
+        <p><%= order_item.quantity%></p>
+        <%= form_with(url: "/order_items/#{order_item.id}/incrementInCart", method: "put") do%>
+          <%= submit_tag("+")%>
+        <% end %>
+      </div>
+      <p> <%= order_item.total %> </p>
+      <%= form_with(url: "/order_items/#{order_item.id}", method: "delete") do %>
+        <%= image_submit_tag("TrashIcon.png") %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<p> <span> Total Price </span><%= order.price %> </p>
+<%= form_with(url: "/orders/confirm", method: "post") do %>
+  <p> <%= button_tag("Confirm Order", type: "submit", data: {disable_with: "Confirming.."} ) %> </p>
+<% end %>

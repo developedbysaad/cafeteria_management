@@ -1,0 +1,14 @@
+<%= form_with(url: user_path, method: "put") do %>
+  <div>
+    <%= text_field_tag(:name, nil, value: user.name, placeholder: "name") %>
+    <p> <%= user.role %> </p>
+  </div>
+  <%= email_field(nil, nil, name: "email", value: user.email, placeholder: "E-mail") %>
+  <%= text_area_tag(:address, user.address, size: "35x6", placeholder: "address") %>
+  <%= telephone_field(nil, nil, name: "phone", value: user.phone, placeholder: "contact number") %>
+  <div>
+    <p>For new password (else ignore)</p>
+    <%= password_field(nil, nil, name: "new_password", placeholder: "new password") %>
+  </div>
+  <%= submit_tag("Update!", data: {disable_with: "Updating.."}) %>
+<% end %>

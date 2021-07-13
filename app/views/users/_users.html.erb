@@ -1,0 +1,27 @@
+<h1><%= role %>s </h1>
+<div>
+  <div>
+    <p>Name</p>
+    <p>Phone</p>
+    <p>Address</p>
+    <p>Total Orders</p>
+    <p>Change Role</p>
+  </div>
+  <% User.category(role).each do |user| %>
+    <div>
+      <p> <%= user.name %> </p>
+      <p> <%= user.phone %> </p>
+      <p> <%= user.address %> </p>
+      <p> <%= user.orders.deliveredOrders.count %> </p>
+      <% if role == "clerk" %>
+        <%= form_with(url: "/users/#{user.id}/removeAsClerk", method: "post") do %>
+          <%= submit_tag("Remove As Clerk", data: {disable_with: "Removing.."}) %>
+        <% end %>
+      <% else %>
+        <%= form_with(url: "/users/#{user.id}/makeAsClerk", method: "post") do %>
+          <%= submit_tag("Appoint As Clerk", data: {disable_with: "Appointing.."}) %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

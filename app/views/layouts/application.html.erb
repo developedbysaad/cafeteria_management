@@ -1,16 +1,85 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CafeteriaManagement</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cafe</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body>
-    <%= yield %>
+            <%= link_to "/" do %>
+              <h1 class="navbar-title"> <i class="fa fa-cutlery brand-icon" aria-hidden="true"></i>Cafe</h1>
+            <% end %>
+
+
+              <%= link_to "/" do %>
+                <p class="tag"> <i class="fa fa-home"></i> Home </p>
+              <% end %>
+              <% if @current_user %>
+                <%= link_to carts_path do %>
+                  <p > Cart </p>
+                <% end %>
+                <%= link_to orders_path do %>
+                  <p> Orders </p>
+                <% end %>
+
+                    <%= link_to "/users/#{@current_user.id}" do %>
+                      <p > Profile </p>
+                    <% end %>
+                    <% if @current_user.role == "owner" %>
+                      <%= link_to users_path do %>
+                        <p> Users </p>
+                      <% end %>
+                      <%= link_to change_menus_path do %>
+                        <p> Change Menu </p>
+                      <% end %>
+                      <%= link_to categories_path do %>
+                        <p> Categories </p>
+                      <% end %>
+                    <% end %>
+
+                    <%= link_to "/signout", method: "delete" do %>
+                      <p> SignOut </p>
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <%= link_to "#welcome-block" do %>
+                  <p> About </p>
+                <% end %>
+                <%= link_to "#footer" do %>
+                  <p> Contact </p>
+                <% end %>
+                <% if @signUpFlag %>
+                  <%= link_to new_session_path do %>
+                    <p> SignIn </p>
+                  <% end %>
+                <% else %>
+                  <%= link_to new_user_path do %>
+                    <p> SignUp </p>
+                  <% end %>
+                <% end %>
+              <% end %>
+	  		    </div>
+          </div>
+	  	  </div>
+	    </header>
+
+      <% if flash[:error] %>
+        <p> <%= flash[:error] %>
+        </p>
+      <% end %>
+      <% if flash[:notice] %>
+        <p> <%= flash[:notice] %>
+        </p>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
   </body>
 </html>

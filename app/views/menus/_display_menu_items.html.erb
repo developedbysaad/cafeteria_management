@@ -1,0 +1,27 @@
+<% menu.itemsByCategory.each do |category_id,menu_items| %>
+  <% category = Category.find(category_id) %>
+  <div>
+    <h1> <%=category.name%> </h1>
+    <p> <%= category.menuItemsCheckedCount(menu.id) %> / <%= category.allMenuItemsCount(menu.id) %> </p>
+    <ul>
+      <% menu_items.each do |menu_item| %>
+        <li>
+          <%= form_with(url: "/menu_items/#{menu_item.id}", method: "put") do %>
+            <% checked = menu_item.active %>
+            <%= check_box_tag(:active, nil, checked, onclick: "this.form.submit()") %>
+          <% end %>
+          <p> <%=menu_item.name%> </p>
+          <p> <%=menu_item.description%> </p>
+          <p> <%=menu_item.price%> </p>
+          <div>
+            <%= form_with(url: "/menu_items/#{menu_item.id}", method: "delete") do %>
+              <%= image_submit_tag("TrashIcon.png") %>
+            <% end %>
+            <p> <%= link_to "Edit", "/menu_items/#{menu_item.id}/edit" %> </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <hr>
+  </div>
+<% end %>

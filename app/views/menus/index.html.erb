@@ -1,0 +1,36 @@
+<%= link_to "/orders/cart" do %>
+  <p> Go to Cart </p>
+<% end %>
+
+<div>
+  <% displayableCategoryItems.each do |category_name,menu_items| %>
+    <div>
+      <h1> <%=category_name%> </h1>
+      <ul>
+        <% menu_items.each do |menu_item| %>
+          <li>
+            <p> <%=menu_item.name%> </p>
+            <p> <%=menu_item.description%> </p>
+            <p> <%=menu_item.price%> </p>
+            <% order_item = Order.find(session[:current_order_id]).order_items.find_by(menu_item_id: menu_item.id) %>
+            <div>
+              <% if order_item %>
+                <%= form_with(url: "/order_items/#{menu_item.id}/decrement", method: "put") do%>
+                  <%= submit_tag("-", class: "decrement-button")%>
+                <% end %>
+                <p class="menu_item-quantity"><%= order_item.quantity%></p>
+                <%= form_with(url: "/order_items/#{menu_item.id}/increment", method: "put") do%>
+                  <%= submit_tag("+", class: "increment-button")%>
+                <% end %>
+              <% else %>
+                <%= form_with(url: "/order_items/#{menu_item.id}/addToCart", method: "post") do%>
+                  <%= submit_tag("Add", class: "add-button")%>
+                <% end %>
+              <% end %>
+            <div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
