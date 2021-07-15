@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
       if order.price > 0
         render "cart", locals: { order: order }
       else
-        flash[:error] = "Your cart is empty.May be items added by you were removed."
+        flash[:error] = "Your cart is empty"
         redirect_to menus_path
       end
     end

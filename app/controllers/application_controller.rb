@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
 
   def ensure_user_logged_in
     unless current_user
-      flash[:error] = "User should Sign in"
       redirect_to new_session_path
     end
   end

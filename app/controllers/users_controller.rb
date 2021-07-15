@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     render "home/index"
   end
 
-  def showPasswordLengthFlash?(password, user)
+  def passwordLength?(password, user)
     if password && password.length >= 8
       user.password = password
       return false
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     user.address = params[:address]
     user.role = "customer"
 
-    if showPasswordLengthFlash?(params[:password], user)
+    if passwordLength?(params[:password], user)
       flash[:error] = "Password length should be greater than 7 characters"
       redirect_to new_user_path and return
     end
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
       user = User.find(id)
       render "profile-edit", locals: { user: user }
     else
-      flash[:error] = "Hey! You are not allowed to view this page."
+      flash[:error] = "You are not allowed to view this page."
       redirect_to "/"
     end
   end
