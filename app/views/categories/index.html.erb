@@ -1,19 +1,20 @@
 <%= form_with(url: categories_path, method: "post", class: "new") do %>
-  <%= text_field_tag(:name, nil, class: "form-input", placeholder: "new category name", autofocus: "autofocus") %>
-  <%= submit_tag("Add Category!", class: "add-category-button", data: {disable_with: "Adding.."}) %>
+  <%= text_field_tag(:name, nil, class: "form-control", placeholder: "new category name", autofocus: "autofocus") %>
+  <%= submit_tag("Add Category!", class: "btn btn-secondary", data: { disable_with: "Adding.." }) %>
 <% end %>
 
-<div class="categories-display">
+<div class="row row-cols-6 row-cols-md-6 g-4">
   <% categories.order(:id).all.each do |category| %>
-    <div class="category-display">
-      <p class="category-name-display" > <%= category.name %> </p>
-      <p class="category-menu-items-count"> <%= category.menu_items.count %> menu items </p>
-      <div class="edit-delete-block">
+<div class="card">
+  <h5 class="card-header"><%= category.name %></h5>
+  <div class="card-body">
+ <h5 class="card-title"><%= category.menu_items.count %> menu items</h5>
           <%= form_with(url: "/categories/#{category.id}", method: "delete") do %>
-            <%= image_submit_tag("TrashIcon.png", class: "category-delete") %>
+            <%= image_submit_tag("TrashIcon.png", class: "btn") %>
           <% end %>
-          <p class="categories-edit-icon"> <%= link_to ('<i class="fa fa-pencil"></i>').html_safe, "/categories/#{category.id}/edit" %> </p>
-        </div>
-    </div>
+   <%= link_to "Edit", "/categories/#{category.id}/edit", class: "btn btn-primary" %>
+
+  </div>
+</div>
   <% end %>
 </div>

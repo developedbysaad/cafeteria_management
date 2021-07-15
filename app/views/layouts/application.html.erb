@@ -1,85 +1,135 @@
-<!DOCTYPE html>
+<!DOCTYpE html>
 <html>
   <head>
     <title>Cafe</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
     <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body>
-            <%= link_to "/" do %>
-              <h1 class="navbar-title"> <i class="fa fa-cutlery brand-icon" aria-hidden="true"></i>Cafe</h1>
-            <% end %>
-
-
-              <%= link_to "/" do %>
-                <p class="tag"> <i class="fa fa-home"></i> Home </p>
-              <% end %>
-              <% if @current_user %>
-                <%= link_to carts_path do %>
-                  <p > Cart </p>
-                <% end %>
-                <%= link_to orders_path do %>
-                  <p> Orders </p>
-                <% end %>
-
-                    <%= link_to "/users/#{@current_user.id}" do %>
-                      <p > Profile </p>
-                    <% end %>
-                    <% if @current_user.role == "owner" %>
-                      <%= link_to users_path do %>
-                        <p> Users </p>
-                      <% end %>
-                      <%= link_to change_menus_path do %>
-                        <p> Change Menu </p>
-                      <% end %>
-                      <%= link_to categories_path do %>
-                        <p> Categories </p>
-                      <% end %>
-                    <% end %>
-
-                    <%= link_to "/signout", method: "delete" do %>
-                      <p> SignOut </p>
-                    <% end %>
-                  </div>
-                </div>
-              <% else %>
-                <%= link_to "#welcome-block" do %>
-                  <p> About </p>
-                <% end %>
-                <%= link_to "#footer" do %>
-                  <p> Contact </p>
-                <% end %>
-                <% if @signUpFlag %>
-                  <%= link_to new_session_path do %>
-                    <p> SignIn </p>
-                  <% end %>
-                <% else %>
-                  <%= link_to new_user_path do %>
-                    <p> SignUp </p>
-                  <% end %>
-                <% end %>
-              <% end %>
-	  		    </div>
-          </div>
-	  	  </div>
-	    </header>
-
-      <% if flash[:error] %>
-        <p> <%= flash[:error] %>
-        </p>
-      <% end %>
-      <% if flash[:notice] %>
-        <p> <%= flash[:notice] %>
-        </p>
-      <% end %>
-
-      <%= yield %>
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+        <%= link_to "/", class: "navbar-brand" do %>
+      Cafe
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+              <%= link_to "/", class: "nav-link active" do %>
+      Home
+    <% end %>
+        </li>
+        </ul>
     </div>
+  </div>
+</nav>
+
+
+
+ <% if @current_user %>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                      <%= link_to carts_path, class: "nav-link active" do %>
+                        Cart
+                      <% end %>
+                </li>
+                <li class="nav-item">
+                      <%= link_to orders_path, class: "nav-link active" do %>
+                      Orders
+                      <% end %>
+                </li>
+                <li class="nav-item">
+                      <%= link_to "/users/#{@current_user.id}", class: "nav-link active" do %>
+                      profile
+                      <% end %>
+                </li>
+
+            <% if @current_user.role == "owner" %>
+
+                    <li class="nav-item">
+                            <%= link_to users_path, class: "nav-link active" do %>
+                              Users
+                            <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                            <%= link_to change_menus_path, class: "nav-link active" do %>
+                              Change Menu
+                              <% end %>
+
+                    </li>
+
+                    <li class="nav-item">
+                            <%= link_to categories_path, class: "nav-link active" do %>
+                            Categories
+                            <% end %>
+                    </li>
+             <% end %>
+
+                  <li class="nav-item">
+                        <%= link_to "/signout", method: "delete", class: "nav-link active" do %>
+                        SignOut
+                        <% end %>
+                  </li>
+
+  <% else %>
+
+            <% if @signUpFlag %>
+
+                        <li class="nav-item">
+                              <%= link_to new_session_path, class: "nav-link active" do %>
+                                SignIn
+                                <% end %>
+                        </li>
+
+                        <% if flash[:error] %>
+                         <div class="alert alert-danger" role="alert">
+                           <%= flash[:error] %>
+                          </div>
+                        <% end %>
+
+              <% else %>
+
+                        <li class="nav-item">
+                              <%= link_to new_user_path, class: "nav-link active" do %>
+                              SignUp
+                              <% end %>
+                        </li>
+
+                        <% if flash[:error] %>
+                         <div class="alert alert-danger" role="alert">
+                           <%= flash[:error] %>
+                          </div>
+                        <% end %>
+
+                <% end %>
+       <% end %>
+
+
+
+
+
+        </ul>
+    </div>
+  </div>
+</nav>
+
+       <%= yield %>
+
+
   </body>
 </html>

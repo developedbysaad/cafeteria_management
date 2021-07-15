@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :setUser
+  before_action :ensure_user_logged_in
 
   def setUser
     @current_user = current_user

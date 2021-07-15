@@ -1,29 +1,53 @@
-<!-- Tabs Titles -->
-<div>
-<% if signUpFlag %>
-<%   signin = "sign-in underlineHover" %>
-<%   signup = "sign-up active" %>
-<% else %>
-<%   signup = "sign-up underlineHover" %>
-<%   signin = "sign-in active" %>
-<% end %>
-<%= link_to "Sign In", new_session_path, class: signin %>
-<%= link_to "Sign Up", new_user_path, class: signup %>
-</div>
 
 <% if signUpFlag %>
-  <%= form_with(url: users_path, method: "post") do %>
-    <%= text_field_tag(:name, nil, placeholder: "name") %>
-    <%= email_field(nil, nil, name: "email", placeholder: "E-mail") %>
-    <%= password_field(nil, nil, name: "password", placeholder: "password")%>
-    <%= telephone_field(nil, nil, name: "phone", placeholder: "contact number") %>
-    <%= text_area_tag(:address, nil, size: "35x6", placeholder: "address") %>
-    <%= submit_tag("Sign Up!", data: {disable_with: "Signing Up.."}) %>
-  <% end %>
+
+<p class="newUsers-title">Welcome new user!</p>
+<section class="UsersNew">
+<%= form_with url: users_path do |form| %>
+<div class="form-section">
+<p class="formInput-label">Name:</p>
+  <%= form.text_field :name, class: "form-input", placeholder: "name" %>
+  </div>
+  <div class="form-section">
+  <p class="formInput-label">Email:</p>
+  <%= form.email_field :email, class: "form-input", placeholder: "E-mail" %>
+  </div>
+  <div class="form-section">
+  <p class="formInput-label">Password:</p>
+  <%= form.password_field :password, class: "form-input", placeholder: "password" %>
+  </div>
+    <div class="form-section">
+  <p class="formInput-label">Phone:</p>
+  <%= form.telephone_field :phone, class: "form-input", placeholder: "contact number" %>
+  </div>
+    <div class="form-section">
+  <p class="formInput-label">Address:</p>
+  <%= form.text_area :address, size: "35x6", class: "form-input", placeholder: "address" %>
+  </div>
+  <div class="form-section">
+  <%= form.submit "Sign-up!", class: "form-submit" %>
+  </div>
+  </section>
+
+<% end %>
 <% else %>
-  <%= form_with(url: sessions_path, method: "post") do %>
-    <%= text_field_tag(:email, nil, placeholder: "email") %>
-    <%= password_field(nil, nil, name: "password", placeholder: "password")%>
-    <%= submit_tag("Sign In!", data: {disable_with: "Signing In.."}) %>
-  <% end %>
+
+<p class="newUsers-title">Sign in!</p>
+<section class="UsersNew">
+<%= form_with url: sessions_path do |form| %>
+<div class="form-section">
+  <div class="form-section">
+  <p class="formInput-label">Email:</p>
+  <%= form.email_field :email, class: "form-input", placeholder: "email" %>
+  </div>
+  <div class="form-section">
+  <p class="formInput-label">Password:</p>
+  <%= form.password_field :password, class: "form-input", placeholder: "password" %>
+  </div>
+  <div class="form-section">
+  <%= form.submit "Sign-in!", class: "form-submit" %>
+  </div>
+  </section>
+<% end %>
+
 <% end %>

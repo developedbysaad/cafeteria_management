@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :ensure_user_logged_in
   before_action :ensure_user_logged_in, only: [:show, :edit]
   before_action :ensure_owner_logged_in, only: [:index]
 
@@ -73,12 +74,7 @@ class UsersController < ApplicationController
       user.email = params[:email]
       user.phone = params[:phone]
       user.address = params[:address]
-      if params[:new_password] != ""
-        if showPasswordLengthFlash?(params[:new_password], user)
-          flash[:error] = "Password length should be greater than 7 characters"
-          redirect_to edit_user_path and return
-        end
-      end
+      user.password = params[:new_password]
       if user.valid?
         user.save
         flash[:notice] = "Profile Updated successfully"

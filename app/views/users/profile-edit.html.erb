@@ -1,14 +1,21 @@
+<div class="mb-3">
 <%= form_with(url: user_path, method: "put") do %>
-  <div>
-    <%= text_field_tag(:name, nil, value: user.name, placeholder: "name") %>
+    <%= text_field_tag(:name, nil, value: user.name, class: "form-control", placeholder: "name") %>
     <p> <%= user.role %> </p>
+    </div>
+<div class="mb-3">
+  <%= email_field(nil, nil, name: "email", value: user.email, class: "form-control", placeholder: "E-mail") %>
   </div>
-  <%= email_field(nil, nil, name: "email", value: user.email, placeholder: "E-mail") %>
-  <%= text_area_tag(:address, user.address, size: "35x6", placeholder: "address") %>
-  <%= telephone_field(nil, nil, name: "phone", value: user.phone, placeholder: "contact number") %>
-  <div>
-    <p>For new password (else ignore)</p>
-    <%= password_field(nil, nil, name: "new_password", placeholder: "new password") %>
+<div class="mb-3">
+  <%= text_area_tag(:address, user.address, size: "35x6", class: "form-control", placeholder: "address") %>
   </div>
-  <%= submit_tag("Update!", data: {disable_with: "Updating.."}) %>
+<div class="mb-3">
+  <%= telephone_field(nil, nil, name: "phone", value: user.phone, class: "form-control", placeholder: "contact number") %>
+  </div>
+<div class="mb-3">
+    <%= password_field(nil, nil, name: "new_password", class: "form-control", placeholder: "new password") %>
+  </div>
+<div class="mb-3">
+  <%= submit_tag("Update!", class: "btn btn-primary", data: { disable_with: "Updating.." }) %>
+  </div>
 <% end %>
