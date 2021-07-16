@@ -1,11 +1,5 @@
-<div class="container">
+
 <h5 class="display-5"> PENDING ORDERS </h5>
-
-
-
-
-
-
 <% pending_orders.each do |order| %>
 
 <table class="table">
@@ -57,7 +51,7 @@
      <table class="table">
       <tr>
         <td>
-          <%= order_item.menu_item_price %>  x  <%= order_item.quantity %> = <%= order_item.total %>
+          <%= order_item.menu_item_price %>  x  <%= order_item.quantity %> = &#8377; <%= order_item.total %>
             </td>
               </tr>
                 </table>
@@ -71,7 +65,7 @@
 
       <td> <%= order.date.strftime("%d/%m/%Y") %></td>
       <td><%= order.status %></td>
-      <td><%= order.totalPrice %></td>
+      <td>&#8377; <%= order.totalPrice %></td>
 <% if @current_user.role != "customer" %>
         <%= form_with(url: "/orderdeliver/#{order.id}", method: "POST") do %>
       <td> <%= submit_tag("Deliver",class: "btn btn-primary", data: {disable_with: "Delivering.."} ) %></td>
@@ -81,4 +75,3 @@
   </tbody>
   <% end %>
 </table>
-</div>
