@@ -1,33 +1,34 @@
 
 
-  <% menu.itemsByCategory.each do |category_id, menu_items| %>
+<% menu.itemsByCategory.each do |category_id, menu_items| %>
 
 
-  <% category = Category.find(category_id) %>
+<% category = Category.find(category_id) %>
 
-      <div class="card">
-                <h5 class="card-header"><%= category.name %>     <%= category.menuItemsCheckedCount(menu.id) %> / <%= category.allMenuItemsCount(menu.id) %></h5>
-        <div class="row row-cols-6 row-cols-md-6 g-4">
-    <% menu_items.each do |menu_item| %>
 
-    <div class="row row-cols-6 row-cols-md-6 g-4">
-      <div class="card-body">
-          <%= form_with(url: "/menu_items/#{menu_item.id}", method: "put") do %>
-            <% checked = menu_item.active %>
-            <%= check_box_tag(:active, nil, checked,class: "form-check-input", onclick: "this.form.submit()") %>
-          <% end %>
-        <h5 class="card-header"> <%= menu_item.name %></h5>
-        <h5 class="card-title"> <%= menu_item.description %></h5>
-       <h5 class="card-text"> <%= menu_item.price %></h5>
+    <h5 class="card-header display-6"><%= category.name %>     <%= category.menuItemsCheckedCount(menu.id) %> / <%= category.allMenuItemsCount(menu.id) %></h5>
+      <div class="row row-cols-6 row-cols-md-6 g-4">
+       <% menu_items.each do |menu_item| %>
+            <div class="col container ">
+                <div class="card">
+                    <%= form_with(url: "/menu_items/#{menu_item.id}", method: "put") do %>
+                        <p> check this checkbox to make it active </p>
+                        <% checked = menu_item.active %>
+                        <%= check_box_tag(:active, nil, checked,class: "form-check-input", onclick: "this.form.submit()") %>
 
-            <%= form_with(url: "/menu_items/#{menu_item.id}", method: "delete") do %>
-              <%= image_submit_tag("TrashIcon.png", class: "btn") %>
-            <% end %>
-          <%= link_to "Edit", "/menu_items/#{menu_item.id}/edit", class: "btn btn-primary" %>
-</div>
-</div>
+                    <% end %>
+                    <h5 class="card-header"> <%= menu_item.name %></h5>
+                    <h5 class="card-title"> <%= menu_item.description %></h5>
+                    <h5 class="card-text">&#8377; <%= menu_item.price %></h5>
 
-     <% end %>
-</div>
-</div>
-     <% end %>
+                    <%= form_with(url: "/menu_items/#{menu_item.id}", method: "delete") do %>
+                       <%= image_submit_tag("TrashIcon.png", class: "btn") %>
+                    <% end %>
+                    <%= link_to "Edit", "/menu_items/#{menu_item.id}/edit", class: "btn btn-primary" %>
+                  </div>
+             </div>
+
+        <% end %>
+    </div>
+
+<% end %>

@@ -4,17 +4,18 @@
 <% end %>
 
 <div class="row row-cols-6 row-cols-md-6 g-4">
-  <% categories.order(:id).all.each do |category| %>
-<div class="card">
-  <h5 class="card-header"><%= category.name %></h5>
-  <div class="card-body">
- <h5 class="card-title"><%= category.menu_items.count %> menu items</h5>
-          <%= form_with(url: "/categories/#{category.id}", method: "delete") do %>
-            <%= image_submit_tag("TrashIcon.png", class: "btn") %>
-          <% end %>
-   <%= link_to "Edit", "/categories/#{category.id}/edit", class: "btn btn-primary" %>
-
-  </div>
-</div>
-  <% end %>
+     <% categories.order(:id).all.each do |category| %>
+    <div class="col">
+        <div class="card">
+         <h5 class="card-header"><%= category.name %></h5>
+             <div class="card-body">
+               <h5 class="card-title"><%= category.menu_items.count %> menu items</h5>
+                <%= form_with(url: "/categories/#{category.id}", method: "delete") do %>
+                <%= image_submit_tag("TrashIcon.png", class: "btn") %>
+                <% end %>
+                 <%= link_to "Edit", "/categories/#{category.id}/edit", class: "btn btn-primary" %>
+               </div>
+         </div>
+      </div>
+     <% end %>
 </div>

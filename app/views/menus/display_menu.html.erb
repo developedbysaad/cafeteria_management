@@ -1,17 +1,15 @@
 <%= link_to change_menus_path do %>
-  <p> All Menus </p>
-<% end %>
-<section>
+  <p class="btn btn-primary"> All Menus </p>
+<% end %> <h1 class="display-6"> <%= menu.name %>   <%= menu.menuItemsCheckedCount %> / <%= menu.menu_items.count %></h1>
+<section class="container">
   <%= form_with(url: menu_items_path, method: "post") do %>
-    <%= text_field_tag(:name, nil, placeholder: "Enter the new item name", autofocus: "autofocus") %>
-    <%= text_area_tag(:description, nil, size: "25x4", placeholder: "Item description") %>
-    <%= select_tag nil, options_for_select(categories), name: "category_id" %>
-    <%= number_field(nil, nil, placeholder: "Enter Price", name: "price", min: 1) %>
-    <%= submit_tag("Add Item!", data: {disable_with: "Adding.."}) %>
+    <%= text_field_tag(:name, nil, class: "form-input", placeholder: "Enter the new item name", autofocus: "autofocus") %>
+    <%= text_area_tag(:description, nil, size: "25x4", class: "form-input", placeholder: "Item description") %>
+    <%= select_tag nil, options_for_select(categories), class: "btn btn-primary", name: "category_id" %>
+    <%= number_field(nil, nil, class: "form-input", placeholder: "Enter Price", name: "price", min: 1) %>
+    <%= submit_tag("Add Item!", class: "btn btn-primary", data: {disable_with: "Adding.."}) %>
   <% end %>
-  <section>
-    <h1> <%= menu.name %> </h1>
-    <p> <%= menu.menuItemsCheckedCount %> / <%= menu.menu_items.count %> </p>
+  </section>
+<section class="container">
     <%= render partial: "display_menu_items", locals: { menu: menu } %>
   </section>
-</section>

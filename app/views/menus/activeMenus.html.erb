@@ -1,22 +1,35 @@
+<div class="container">
+      <%= form_with(url: menus_path, method: "post") do %>
+      <%= text_field_tag(:name, nil, class: "form-input", placeholder: "Enter the new menu name", autofocus: "autofocus") %>
+      <%= submit_tag("Create!", class: "btn btn-primary", data: { disable_with: "Creating.." }) %>
+      <% end %>
+</div>
 
-  <%= form_with(url: menus_path, method: "post") do %>
-    <%= text_field_tag(:name, nil, class: "form-input", placeholder: "Enter the new menu name", autofocus: "autofocus") %>
-    <%= submit_tag("Create!", data: { disable_with: "Creating.." }) %>
-  <% end %>
+    <h6 class="display-6"><%= Menu.activeMenusCount %> / <%= Menu.all.count %> Active menus</h6>
+    <h6 class="display-6"><%= MenuItem.activeMenuItemsCount %> / <%= MenuItem.all.count %> Active menu items</h6>
+<div class="row row-cols-6 row-cols-md-6 g-4">
+<% Menu.order(:id).all.each do |menu| %>
 
-     <%= Menu.activeMenusCount %> / <%= Menu.all.count %> Active menus
-   <%= MenuItem.activeMenuItemsCount %> / <%= MenuItem.all.count %> Active menu items
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-header">
+                <%= form_with(url: "/menus/#{menu.id}", method: "put") do %>
+                <% checked = menu.active %>
+                <%= check_box_tag(:active, nil, checked, class: "form-check-input", onclick: "this.form.submit()") %>
+                <p> Check this to make the menu active </p>
+                <% end %> </h5>
+                <h5 class="card-title"><%= menu.menuItemsCheckedCount %>/<%= menu.menu_items.count %> items </h5>
 
-    <% Menu.order(:id).all.each do |menu| %>
+            <%= link_to "#{menu.name}", "/menus/#{menu.id}", class: "btn btn-primary" %>
 
-        <%= form_with(url: "/menus/#{menu.id}", method: "put") do %>
-          <% checked = menu.active %>
-          <%= check_box_tag(:active, nil, checked, onclick: "this.form.submit()") %>
+            <%= form_with(url: "/menus/#{menu.id}", method: "delete") do %>
+            <%= image_submit_tag("TrashIcon.png", class: "btn btn-danger") %>
+            <% end %>
+            <%= link_to "Edit", "/menus/#{menu.id}/edit", class: "btn btn-primary" %>
+          </div>
+      </div>
+  </div>
+
         <% end %>
-        <%= link_to "#{menu.name}", "/menus/#{menu.id}" %>
-      <%= menu.menuItemsCheckedCount %>/<%= menu.menu_items.count %> items
-          <%= form_with(url: "/menus/#{menu.id}", method: "delete") do %>
-            <%= image_submit_tag("TrashIcon.png", class: "activeMenus-trash-icon") %>
-          <% end %>
-        <%= link_to "Edit", "/menus/#{menu.id}/edit" %>
-    <% end %>
+</div>
