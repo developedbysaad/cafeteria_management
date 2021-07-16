@@ -1,28 +1,43 @@
-<%= link_to menus_path do %>
-  <p> Add More Items </h1>
+<%= link_to menus_path, class: "btn btn-primary" do %>
+   Add More Items
 <% end %>
-<div>
-  <% order.order_items.order(:id).each do |order_item|%>
-    <div>
-      <p> <%= order_item.menu_item_name %> </p>
-      <p> <%= order_item.menu_item_price %> </p>
-      <div>
-        <%= form_with(url: "/order_items/#{order_item.id}/decrementInCart", method: "put") do%>
-          <%= submit_tag("-")%>
-        <% end %>
-        <p><%= order_item.quantity%></p>
-        <%= form_with(url: "/order_items/#{order_item.id}/incrementInCart", method: "put") do%>
-          <%= submit_tag("+")%>
+  <div class="row row-cols-6 row-cols-md-6 g-4">
+        <% order.order_items.order(:id).each do |order_item| %>
+     <div class="col">
+       <div class="card">
+          <h5 class="card-header"><%= order_item.menu_item_name %></h5>
+             <div class="card-body ">
+                  <h6 class="card-text">&#8377; <%= order_item.menu_item_price %></h6>
+                 <%= form_with(url: "/order_items/#{order_item.id}/decrementInCart", method: "put") do %>
+                  <%= submit_tag("-", class: "btn btn-primary") %>
+                 <% end %>
+                  <h6 class="card-number"><%= order_item.quantity %></h6>
+                <%= form_with(url: "/order_items/#{order_item.id}/incrementInCart", method: "put") do %>
+                <%= submit_tag("+", class: "btn btn-primary") %>
+                <% end %>
+        <%= order_item.total %>
+        <%= form_with(url: "/order_items/#{order_item.id}", method: "delete") do %>
+          <%= image_submit_tag("TrashIcon.png", class: "btn btn-danger") %>
         <% end %>
       </div>
-      <p> <%= order_item.total %> </p>
-      <%= form_with(url: "/order_items/#{order_item.id}", method: "delete") do %>
-        <%= image_submit_tag("TrashIcon.png") %>
-      <% end %>
     </div>
-  <% end %>
-</div>
-<p> <span> Total Price </span><%= order.price %> </p>
-<%= form_with(url: "/orders/confirm", method: "post") do %>
-  <p> <%= button_tag("Confirm Order", type: "submit", data: {disable_with: "Confirming.."} ) %> </p>
-<% end %>
+  </div>
+    <% end %>
+  </div>
+  <div class="container">
+     <table class="table">
+       <thead>
+         <tr>
+           <th> Total Price: </th>
+           <th> Confirm order </th>
+        </thead>
+        <tbody>
+           <tr>
+             <td> <%= order.price %> </td>
+             <td> <%= form_with(url: "/orders/confirm", method: "post") do %>
+                <%= button_tag("Confirm Order", class: "btn btn-primary", type: "submit", data: { disable_with: "Confirming.." }) %>
+               <% end %></td>
+          </tr>
+       </tbody>
+     </table>
+  </div>
