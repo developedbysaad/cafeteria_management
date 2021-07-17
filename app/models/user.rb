@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, uniqueness: { case_sensitive: false }, presence: true
   validates :address, presence: true, length: { maximum: 1000 }
-  validates :phone, presence: true, length: { is: 10 }
+  validates :phone, uniqueness: true, presence: true, length: { is: 10 }
   def self.clerks
     order(:id).where(role: "clerk")
   end
