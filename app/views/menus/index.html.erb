@@ -21,6 +21,9 @@
                               <%= form_with(url: "/order_items/#{menu_item.id}/increment", method: "put") do %>
                                     <%= submit_tag("+", class: "btn btn-primary") %>
                               <% end %>
+                              <%= link_to carts_path, class: "btn btn-secondary" do %>
+                                    Go to Cart
+                               <% end %>
                         <% else %>
                               <%= form_with(url: "/order_items/#{menu_item.id}/addToCart", method: "post") do %>
                                <%= submit_tag("Add", class: "btn btn-primary") %>

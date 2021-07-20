@@ -1,7 +1,9 @@
+<span class="container">
 <%= link_to menus_path, class: "btn btn-primary" do %>
    Add More Items
 <% end %>
-  <div class="row row-cols-6 row-cols-md-6 g-4">
+</span>
+  <div class="row row-cols-6 row-cols-md-6 g-4 container">
         <% order.order_items.order(:id).each do |order_item| %>
      <div class="col">
        <div class="card">
@@ -25,7 +27,7 @@
     <% end %>
   </div>
   <div class="container">
-     <table class="table">
+     <table class="table table-secondary table-striped">
        <thead>
          <tr>
            <th> Total Price: </th>
