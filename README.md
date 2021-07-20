@@ -1,7 +1,7 @@
 # Cafeteria Management
 
 ## Cafeteria Management web application
-![Screenshot from http://http://saad-cafe-saas-201.herokuapp.com](https://github.com/saad5133/cafeteria_management/tree/master/app/assets/images/cafe_photo.jpg)
+![Screenshot from http://http://saad-cafe-saas-201.herokuapp.com](https://github.com/saad5133/cafeteria_management/blob/master/app/assets/images/cafe_photo.jpg)
 
 Deployed at http://saad-cafe-saas-201.herokuapp.com
 
