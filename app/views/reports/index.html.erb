@@ -39,8 +39,9 @@
         <th> Total </th>
         <th> Click For Invoice </th>
       </thead>
-      <% orders.each do |order| %>
       <tbody>
+      <% orders.each do |order| %>
+
         <tr>
           <td> <%= order.delivered_at.strftime("%d/%m/%Y") %></td>
           <td> <%= order.user_id %> </td>
@@ -58,8 +59,9 @@
             <% end %>
           </td>
         </tr>
-        </tbody>
+
       <% end %>
+      </tbody>
     </table>
   <% end %>
 </div>

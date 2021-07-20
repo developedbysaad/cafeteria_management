@@ -2,7 +2,7 @@
 <h5 class="display-5"> PENDING ORDERS </h5>
 <% pending_orders.each do |order| %>
 
-<table class="table">
+<table class="table table-secondary table-striped">
   <thead>
     <tr>
       <th scope="col">Order Id</th>
@@ -24,14 +24,14 @@
   <tbody>
     <tr>
      <td><%= order.id %></td>
-<% if order.user.role == "customer"%>
+<% if order.user.role == "customer" %>
      <td><%= order.user.name %></td>
 <% else %>
-        <td>Walk-In-customer(by <%= User.find(order.user_id).name%>)</td>
+        <td>Walk-In-customer(by <%= User.find(order.user_id).name %>)</td>
         <% end %>
     <% if order.user_id == current_user.id %>
         <%= form_with(url: "/orders/#{order.id}", method: "delete") do %>
-      <td><%= submit_tag("Cancel order !",class: "btn btn-danger", data: {disable_with: "Cancelling.."}) %></td>
+      <td><%= submit_tag("Cancel order !", class: "btn btn-danger", data: { disable_with: "Cancelling.." }) %></td>
          <% end %>
     <% end %>
 
@@ -68,7 +68,7 @@
       <td>&#8377; <%= order.totalPrice %></td>
 <% if @current_user.role != "customer" %>
         <%= form_with(url: "/orderdeliver/#{order.id}", method: "POST") do %>
-      <td> <%= submit_tag("Deliver",class: "btn btn-primary", data: {disable_with: "Delivering.."} ) %></td>
+      <td> <%= submit_tag("Deliver", class: "btn btn-primary", data: { disable_with: "Delivering.." }) %></td>
         <% end %>
 <% end %>
    </tr>

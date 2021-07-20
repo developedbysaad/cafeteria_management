@@ -1,5 +1,5 @@
 <h5 class="display-5"> COMPLETED ORDERS </h5>
-<table class="table">
+<table class="table table-secondary table-striped">
 <thead>
 <th> OrderID </th>
 <th> Name </th>
@@ -10,9 +10,9 @@
 <th> Total Price </th>
 <th> Invoice </th>
 </thead>
-
+<tbody>
   <% delivered_orders.each do |order| %>
-  <tbody>
+
   <tr>
       <td><%= order.id %></td>
         <td>
@@ -60,6 +60,7 @@
                  <%= link_to "Invoice", "/reports/#{order.id}", class: "btn btn-primary" %>
                  </td>
      </tr>
-</tbody>
+
   <% end %>
+  </tbody>
 </table>
