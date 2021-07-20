@@ -1,24 +1,34 @@
-# README
+# Cafeteria Management
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Cafeteria Management web application
+![Screenshot from http://http://saad-cafe-saas-201.herokuapp.com](https://github.com/saad5133/cafeteria_management/tree/master/app/assets/images/cafe_photo.jpg)
 
-Things you may want to cover:
+Deployed at http://saad-cafe-saas-201.herokuapp.com
 
-* Ruby version
 
-* System dependencies
+### About Cafeteria Management System
 
-* Configuration
+* Cafeteria Management system is an online food ordering website.
 
-* Database creation
 
-* Database initialization
+## Credentials For Demo :
+Deployed at http://saad-cafe-saas-201.herokuapp.com
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Guest User Account:
 
-* Deployment instructions
+Email: `guestuser@gmail.com`
 
-* ...
+Password: `guestuser`
+
+### Guest Clerk Account:
+
+Email: `guestclerk@gmail.com`
+
+Password: `guestclerk`
+
+### Admin
+
+Email: `admin@cafe.com`
+
+Password: `p1234567`
