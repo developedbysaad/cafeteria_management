@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :menu_items
   resources :order_items
   resources :users
-  resources :applicants
+  resources :reports
   resources :categories
   resources :orders
 end

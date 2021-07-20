@@ -1,5 +1,5 @@
 
-<table class="table">
+<table class="table table-secondary table-striped">
   <tbody>
     <tr>
       <th scope="row">name</th>
@@ -21,8 +21,6 @@
       <th scope="row">Address</th>
       <td> <%= user.address %> </td>
     </tr>
-    <tr>
-    <td><%= link_to "Edit", "/users/#{user.id}/edit", class: "btn btn-primary" %></td>
-    </tr>
       </tbody>
 </table>
+<%= link_to "Edit", "/users/#{user.id}/edit", class: "btn btn-primary" %>

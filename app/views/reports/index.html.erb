@@ -1,0 +1,65 @@
+
+  <h5 class="display-5">REPORTS</h5>
+  <div class = "form-section">
+    <%= form_with(url: "/reports", method: "get", local: "true") do %>
+      Start Date: <%= date_field_tag("start_date", class: "form-input") %>
+      End Date: <%= date_field_tag("end_date", class: "form-input") %>
+      Customer Id: <%= number_field_tag("customer_id", nil, { min: 0, max: 1000, class: "form-input" }) %></p>
+      <%= submit_tag("Search", class: "btn btn-primary", data: { disable_with: "Searching.." }) %>
+    <% end %>
+  </div>
+  <% if orders %>
+  <table class="table table-secondary table-striped">
+  <thead>
+  <th> Start Date </th>
+  <th> End Date </th>
+  <th> Customer Id </th>
+  <th> Total Orders </th>
+  <th> Total Cash </th>
+  </thead>
+      <td> <%= start_date.to_date.strftime("%d/%m/%Y") %></td>
+      <td> <%= end_date.to_date.strftime("%d/%m/%Y") %></td>
+      <td>
+        <% if customer_id != (nil || "") %>
+          <%= customer_id %>
+        <% else %>
+          --
+        <% end %>
+          </td>
+      <td> <%= orders.count %> </td>
+      <td>  <%= orders.totalOrdersPrice %> </td>
+
+    </div>
+
+    <table class = "table table-secondary table-striped">
+      <thead>
+        <th>Delivered Date:</th>
+        <th> User ID:</th>
+        <th> Customer Name </th>
+        <th> Total </th>
+        <th> Click For Invoice </th>
+      </thead>
+      <% orders.each do |order| %>
+      <tbody>
+        <tr>
+          <td> <%= order.delivered_at.strftime("%d/%m/%Y") %></td>
+          <td> <%= order.user_id %> </td>
+          <td>
+            <% if order.user.role == "customer" %>
+              <%= User.find(order.user_id).name %>
+            <% else %>
+              Walk-In-customer(by <%= User.find(order.user_id).name %>)
+            <% end %>
+          </td>
+          <td> <i class="fa fa-inr" aria-hidden="true"></i> <%= order.price %> </td>
+          <td>
+            <%= form_with(url: "/reports/#{order.id}", method: "get", local: "true") do %>
+              <%= submit_tag("Invoice", class: "btn btn-primary") %>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      <% end %>
+    </table>
+  <% end %>
+</div>

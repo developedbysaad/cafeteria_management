@@ -8,6 +8,7 @@
 <th> Ordered </th>
 <th> delivered </th>
 <th> Total Price </th>
+<th> Invoice </th>
 </thead>
 
   <% delivered_orders.each do |order| %>
@@ -15,10 +16,10 @@
   <tr>
       <td><%= order.id %></td>
         <td>
-        <% if order.user.role == "customer"%>
+        <% if order.user.role == "customer" %>
          <%= order.user.name %>
         <% else %>
-         Walk-In-customer(by <%= User.find(order.user_id).name%>) </span>
+         Walk-In-customer(by <%= User.find(order.user_id).name %>) </span>
         <% end %>
           </td>
 
@@ -55,6 +56,9 @@
         <td>
         &#8377; <%= order.totalPrice %>
         </td>
+                <td>
+                 <%= link_to "Invoice", "/reports/#{order.id}", class: "btn btn-primary" %>
+                 </td>
      </tr>
 </tbody>
   <% end %>

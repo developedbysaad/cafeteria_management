@@ -1,0 +1,67 @@
+<h5 class="display-5"> INVOICE </h5>
+<table class="table table-secondary table-striped">
+  <thead>
+      <th> Order ID   </th>
+      <th> ordered at </th>
+      <th> delivered at </th>
+      <th> Billed To  </th>
+      <th> Shipped to </th>
+      <th> Phone </th>
+  </thead>
+    <tbody>
+      <tr>
+<td> <%= order.id %> </td>
+<td> <%= order.date.strftime("%d/%m/%Y") %> </td>
+<td> <%= order.delivered_at.strftime("%d/%m/%Y at %I:%M %p") %>  </td>
+
+
+<td>
+    <% if order.user.role == "customer" %>
+    <%= User.find(order.user_id).name %>
+    <% else %>
+      Walk-In-customer(by <%= User.find(order.user_id).name %>)
+    <% end %>
+</td>
+<td>
+     <% if order.user.role == "customer" %>
+    <%= User.find(order.user_id).address %>
+    <% else %>
+    - - -
+    <% end %>
+    </td>
+
+<td>
+  <% if order.user.role == "customer" %>
+  <%= User.find(order.user_id).phone %>
+  </td>
+  <td>
+    <% else %>
+    - - -
+    <% end %>
+    </td>
+     </tr>
+    </tbody>
+  </table>
+
+<table class = "table table-secondary table-striped">
+  <thead>
+      <th> Menu Item Id </th>
+      <th> Menu Item    </th>
+      <th> Quantity     </th>
+      <th> Price        </th>
+      <th> Price x quantity </th>
+  </thead>
+  <tbody>
+    <% order.order_items.each do |order_item| %>
+      <tr>
+        <td>  <%= order_item.menu_item_id %> </td>
+        <td> <%= order_item.menu_item_name %> </td>
+        <td> <%= order_item.quantity %> </td>
+        <td> <i class="fa fa-inr" aria-hidden="true"></i> <%= order_item.menu_item_price %> </td>
+        <td> <i class="fa fa-inr" aria-hidden="true"></i> <%= order_item.menu_item_price * order_item.quantity %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p class = "invoice-order__total"> Total Amount = <i class="fa fa-inr" aria-hidden="true"></i> <%= order.price %> </p>
+<hr>
