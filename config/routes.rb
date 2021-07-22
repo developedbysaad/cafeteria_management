@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get "/" => "home#index"
 
+  post "/users/addNewUser" => "users#addNewUser"
+
   get "/menus/changemenu" => "menus#changeMenu", as: :change_menus
   put "/menus/:id/updateMenuName" => "menus#updateMenuName"
   put "menu_items/:id/updateMenuItem" => "menu_items#updateMenuItem"
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
   post "/signin" => "sessions#create", as: :sessions
   delete "/signout" => "sessions#destroy"
 
+  post "/users/:id/demoteToClerk" => "users#demoteToClerk"
+  post "/users/:id/promoteToOwner" => "users#promoteToOwner"
   post "/users/:id/removeAsClerk" => "users#removeAsClerk"
   post "/users/:id/makeAsClerk" => "users#makeAsClerk"
 

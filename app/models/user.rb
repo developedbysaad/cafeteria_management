@@ -5,6 +5,11 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }, presence: true
   validates :address, presence: true, length: { maximum: 1000 }
   validates :phone, uniqueness: true, presence: true, length: { is: 10 }
+
+  def self.owners
+    order(:id).where(role: "owner")
+  end
+
   def self.clerks
     order(:id).where(role: "clerk")
   end
@@ -14,7 +19,9 @@ class User < ApplicationRecord
   end
 
   def self.category(role)
-    if role == "clerk"
+    if role == "owner"
+      owners
+    elsif role == "clerk"
       clerks
     else
       customers

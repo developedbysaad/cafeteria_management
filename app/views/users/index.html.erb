@@ -1,3 +1,17 @@
 
+<%= form_with url: "/users/addNewUser", method: :post, class: "form-section" do |form| %>
+    <%= form.hidden_field :source, value: "admin" %>
+      <%= form.text_field :name, placeholder: "Name", class: "form-input" %>
+      <%= form.email_field :email, placeholder: "Email", class: "form-input" %>
+      <%= form.password_field :password, placeholder: "Password", class: "form-input" %>
+      <%= form.telephone_field :phone, placeholder: "phone", class: "form-input" %>
+      <%= form.text_area :address, placeholder: "Address", class: "form-input" %>
+<%= select_tag nil, options_for_select(["owner", "clerk", "customer"]), class: "btn btn-primary", name: "role" %>
+      <%= form.submit :Add, class: "btn btn-primary" %>
+  <% end %>
+
+
+
+<%= render partial: "users", locals: { role: "owner" } %>
 <%= render partial: "users", locals: { role: "clerk" } %>
 <%= render partial: "users", locals: { role: "customer" } %>

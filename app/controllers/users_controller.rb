@@ -44,6 +44,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def addNewUser
+    new_user = User.new(
+      name: params[:name],
+      email: params[:email],
+      password: params[:password],
+      phone: params[:phone],
+      address: params[:address],
+      role: params[:role],
+    )
+    if not new_user.save()
+      flash[:error] = new_user.errors.full_messages.join(", ")
+    end
+    if params[:source] == "admin"
+      redirect_to users_path
+    else
+      redirect_to menus_path
+    end
+  end
+
   def show
     id = params[:id]
     if id.to_i == current_user.id
@@ -87,6 +106,22 @@ class UsersController < ApplicationController
       flash[:error] = "Invalid Update"
       redirect_to "/"
     end
+  end
+
+  def demoteToClerk
+    id = params[:id]
+    user = User.find(id)
+    user.role = "clerk"
+    user.save
+    redirect_to users_path
+  end
+
+  def promoteToOwner
+    id = params[:id]
+    user = User.find(id)
+    user.role = "owner"
+    user.save
+    redirect_to users_path
   end
 
   def removeAsClerk

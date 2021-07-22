@@ -1,41 +1,52 @@
 
 <div class="container">
-<table class="table table-secondary table-striped">
 <h1 class="display-5"><%= role %>s </h1>
-
+<table class="table table-secondary table-striped ">
 
   <thead>
     <tr>
     <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">Total Orders</th>
-      <th scope="col">Change Role</th>
+      <th style="width: 10%">Name</th>
+      <th style="width: 10%">Email</th>
+      <th style="width: 10%">Phone</th>
+      <th style="width: 30%">Address</th>
+      <th style="width: 10%">Total Orders</th>
+      <th style="width: 30%"class = "text-center" colspan="2">Change role</th>
     </tr>
  </thead>
-  <% User.category(role).each do |user| %>
   <tbody>
+  <% User.category(role).each do |user| %>
     <tr>
       <th scope="row"><%= user.id %></th>
       <td><%= user.name %></td>
+      <td><%= user.email %></td>
       <td><%= user.phone %></td>
       <td><%= user.address %></td>
       <td><%= user.orders.deliveredOrders.count %></td>
       <td>
+      <% if role == "owner" %>
+        <%= form_with(url: "/users/#{user.id}/demoteToClerk", method: "post") do %>
+          <%= submit_tag("Demote To Clerk", class: "btn btn-primary", data: { disable_with: "Demoting.." }) %>
+        <% end %>
+       <% elsif role == "clerk" || role == "customer" %>
+        <%= form_with(url: "/users/#{user.id}/promoteToOwner", method: "post") do %>
+          <%= submit_tag("Promote To Owner", class: "btn btn-primary", data: { disable_with: "Promoting.." }) %>
+        <% end %>
+      <% end %>
+        </td>
+              <td>
       <% if role == "clerk" %>
         <%= form_with(url: "/users/#{user.id}/removeAsClerk", method: "post") do %>
-          <%= submit_tag("Remove As Clerk", class: "btn btn-primary", data: {disable_with: "Removing.."}) %>
+          <%= submit_tag("Remove As Clerk", class: "btn btn-primary", data: { disable_with: "Removing.." }) %>
         <% end %>
-      <% else %>
+      <% elsif role == "customer" %>
         <%= form_with(url: "/users/#{user.id}/makeAsClerk", method: "post") do %>
-          <%= submit_tag("Appoint As Clerk", class: "btn btn-primary", data: {disable_with: "Appointing.."}) %>
+          <%= submit_tag("Appoint As Clerk", class: "btn btn-primary", data: { disable_with: "Appointing.." }) %>
         <% end %>
+      <% end %>
         </td>
     </tr>
-  </tbody>
-      <% end %>
-
   <% end %>
+   </tbody>
   </table>
 </div>
